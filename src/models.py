@@ -4,7 +4,7 @@ class Vacancy:
     Содержит основные данные по вакансии и методы сравнения по зарплате
     """
 
-    def __init__(self, title: str, url: str, salary: int | float | None, description: str):
+    def __init__(self, title: str, url: str, salary: int | float | None | dict, description: str):
         self._title = title
         self._url = url
         self._salary = salary
@@ -69,10 +69,3 @@ class Vacancy:
         description = ' '.join(filter(None, [requirement, responsibility]))
 
         return cls(title, url, salary_raw, description)
-
-
-
-vac1 = Vacancy("Jun Python", "https://hh.ru/vac1", {"from": 50000, "to": 70000}, "Jun pos")
-vac2 = Vacancy("Mid Python", "https://hh.ru/vac1", {"from": 100000, "to": 150000}, "Mid pos")
-vac3 = Vacancy("Sen Python", "https://hh.ru/vac1", 500000, "Senior Pomidor")
-
