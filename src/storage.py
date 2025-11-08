@@ -34,6 +34,8 @@ class JSONStorage(VacancyStorage, ABC):
         # формируем путь до data
         self._filename = os.path.join(project_root, "data", filename)
 
+        print(f"[DEBUG] Файл создаётся по пути: {self._filename}")
+
         # создаем папку, если её нет
         folder = os.path.dirname(self._filename)
         if folder and not os.path.exists(folder):
@@ -52,6 +54,9 @@ class JSONStorage(VacancyStorage, ABC):
                 data = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             data = []
+
+        if isinstance(data, dict):
+            data = data.get("items", [])
 
         #Преобразуем объект Vacancy в словарь
         vacancy_dict = vacancy.to_dict()
@@ -87,6 +92,9 @@ class JSONStorage(VacancyStorage, ABC):
                 data = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError):
             return []
+
+        if isinstance(data, dict) and "items" in data:
+            data = data["items"]
 
         vacancies = []
 
